@@ -38,4 +38,4 @@ jobs:
 
       - name: Upload Charts
         run: |
-          main.py
+          python main.py
