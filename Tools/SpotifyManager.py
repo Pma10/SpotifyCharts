@@ -30,7 +30,7 @@ class SpotifyManager:
         print("Playlist details changed")
 
     def search_track(self, track_name: str, artist_name: str):
-        query = f"{track_name} {artist_name}"
+        query = f"{artist_name} {track_name}"
         results = self.sp.search(q=query, type='track', limit=1)
         items = results['tracks']['items']
         if items:
