@@ -41,11 +41,7 @@ class SpotifyManager:
             results = self.sp.search(q=f"{track_name} {artist_name.split()[0]}", type='track', limit=10, market='KR')
             for item in results['tracks']['items']:
                 if artist_id in item["album"]["artists"][0]["uri"] or artist_id2 in item["album"]["artists"][0]["uri"] or artist_id3 in item["album"]["artists"][0]["uri"]:
-                    print(f"Found {track_name} by {artist_name}")
                     return item['uri']
-            print(f"No results found for {track_name} by {artist_name} {artist_id}")
-            print(artist_name.split()[0], artist_name.split()[-1], artist_name.split(",")[0])
-            print(results['tracks']['items'])
             return results['tracks']['items'][0]['uri']
         else:
             results = self.sp.search(q=f"{track_name} {artist_name.split()[0]}", type='track', limit=1, market='KR')
