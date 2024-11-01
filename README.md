@@ -3,4 +3,4 @@
  - 필요 라이브러리 : bs4 requests spotipy aiohttp python-dotenv tqdm
 # 차트 URL
 https://open.spotify.com/playlist/23sbdFfy5nOBIKqujRvhvu
-https://open.spotify.com/playlist/33wwUKWxWEaeITp90923QR 
+[https://open.spotify.com/playlist/33wwUKWxWEaeITp90923QR ](https://open.spotify.com/playlist/2VaFuDxksZmH3ARn3wfk02?si=8ceaf23412644389)
