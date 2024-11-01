@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 async def get_tj_song():
-    url = 'https://www.tjmedia.co.kr/tjsong/song_monthPopular.asp'
+    url = 'https://www.tjmedia.com/tjsong/song_monthPopular.asp?strType=1&SYY=2024&SMM=10&EYY=2024&EMM=11'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
     response = requests.get(url, headers=headers)

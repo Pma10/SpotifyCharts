@@ -4,7 +4,6 @@ import os
 from tqdm import tqdm
 from datetime import datetime, timezone, timedelta
 from Tools.SpotifyManager import SpotifyManager
-from Tools.getMelonChart import get_melon_chart
 from Tools.getTjSong import get_tj_song
 
 load_dotenv()
@@ -18,8 +17,10 @@ PLAYLIST_ID_TJ = os.getenv("PLAYLIST_ID_TJ")
 async def update_playlist(spotify, playlist_id, chart, chart_name):
     print(f"Getting {chart_name} chart...")
     chart_data = await chart()
+    print(chart_data)
     uris = [spotify.search_track(title, artist) for title, artist in tqdm(chart_data)]
     print(f"Finished searching for tracks on Spotify for {chart_name} chart")
+    print(uris)
 
     current_tracks = spotify.get_tracks_from_playlist(playlist_id)
     if current_tracks:
@@ -44,7 +45,7 @@ async def main():
     spotify = SpotifyManager(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
     spotify.authenticate()
 
-    await update_playlist(spotify, PLAYLIST_ID_MELON, get_melon_chart, "멜론")
+    #await update_playlist(spotify, PLAYLIST_ID_MELON, get_melon_chart, "멜론")
     await update_playlist(spotify, PLAYLIST_ID_TJ, get_tj_song, "TJ노래방")
 
     print("Finished updating all playlists")

@@ -25,16 +25,28 @@ class SpotifyManager:
         self.sp.playlist_add_items(playlist_id, track_uris)
         print("Tracks added to playlist")
 
+    def search_artist(self, artist_name: str):
+        results = self.sp.search(q=artist_name, type='artist', limit=1, market='KR')
+        return results['artists']['items'][0]['uri']
+
     def change_playlist_details(self, playlist_id: str, name: str, description: str):
         self.sp.playlist_change_details(playlist_id, name=name, description=description)
         print("Playlist details changed")
 
     def search_track(self, track_name: str, artist_name: str):
-        query = f"{artist_name} {track_name}"
-        results = self.sp.search(q=query, type='track', limit=1)
-        items = results['tracks']['items']
-        if items:
-            return items[0]['uri']
+        artist_id = self.search_artist(artist_name.split()[0])
+        artist_id2= self.search_artist(artist_name.split()[-1])
+        artist_id3 = self.search_artist(artist_name.split(",")[0])
+        if artist_id or artist_id2 or artist_id3:
+            results = self.sp.search(q=f"{track_name} {artist_name.split()[0]}", type='track', limit=10, market='KR')
+            for item in results['tracks']['items']:
+                if artist_id in item["album"]["artists"][0]["uri"] or artist_id2 in item["album"]["artists"][0]["uri"] or artist_id3 in item["album"]["artists"][0]["uri"]:
+                    print(f"Found {track_name} by {artist_name}")
+                    return item['uri']
+            print(f"No results found for {track_name} by {artist_name} {artist_id}")
+            print(artist_name.split()[0], artist_name.split()[-1], artist_name.split(",")[0])
+            print(results['tracks']['items'])
+            return results['tracks']['items'][0]['uri']
         else:
-            print(f"No results found for {track_name} by {artist_name}")
-            return None
+            results = self.sp.search(q=f"{track_name} {artist_name.split()[0]}", type='track', limit=1, market='KR')
+            return results['tracks']['items'][0]['uri']
